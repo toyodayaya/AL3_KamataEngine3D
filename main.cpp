@@ -1,4 +1,5 @@
 #include <KamataEngine.h>
+#include "GameScene.h"
 
 using namespace KamataEngine;
 
@@ -11,6 +12,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Audio* audio = nullptr;
 	AxisIndicator* axisIndicator = nullptr;
 	PrimitiveDrawer* primitiveDrawer = nullptr;
+	GameScene* gamescene = nullptr;
 
 	// ゲームウィンドウの作成
 	win = WinApp::GetInstance();
@@ -49,6 +51,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	primitiveDrawer = PrimitiveDrawer::GetInstance();
 	primitiveDrawer->Initialize();
+
+	// ゲームシーンの初期化
+	gamescene = new GameScene();
+	gamescene->Initialize();
 #pragma endregion
 
 	// メインループ
@@ -57,6 +63,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		if (win->ProcessMessage()) {
 			break;
 		}
+
+		// スプライト描画
+		gamescene->Draw();
 
 		// ImGui受付開始
 		imguiManager->Begin();
